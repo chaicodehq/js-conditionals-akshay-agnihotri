@@ -25,6 +25,45 @@
  * @param {string} password - The password to evaluate
  * @returns {string} "weak", "medium", "strong", or "very strong"
  */
+function isContainsUpperCase(password) {
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i = 0; i < password.length; i++) {
+    if (upper.includes(password.charAt(i))) return true;
+  }
+  return false;
+}
+function isContainsLowerCase(password) {
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  for (let i = 0; i < password.length; i++) {
+    if (lower.includes(password.charAt(i))) return true;
+  }
+  return false;
+}
+function isContainsDigit(password) {
+  const digit = "0123456789";
+  for (let i = 0; i < password.length; i++) {
+    if (digit.includes(password.charAt(i))) return true;
+  }
+  return false;
+}
+function isContainsSpecialCharacter(password) {
+  const specialCharacter = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+  for (let i = 0; i <password.length; i++) {
+    if (specialCharacter.includes(password.charAt(i))) return true;
+  }
+  return false;
+}
 export function checkPasswordStrength(password) {
-  // Your code here
+  if(typeof password !== "string") return "weak";
+  let count=0;
+  if (password.length >= 8) count++;
+  if (isContainsUpperCase(password)) count++;
+  if (isContainsLowerCase(password)) count++;
+  if (isContainsDigit(password)) count++;
+  if (isContainsSpecialCharacter(password)) count++;
+
+  if(count<=1) return "weak";
+  if(count<=3) return "medium";
+  if(count<=4) return "strong";
+  return "very strong";
 }
